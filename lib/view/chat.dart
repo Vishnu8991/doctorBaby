@@ -47,7 +47,7 @@ class ChatBot extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.cyan[900],
         title: Text(
           "Baby Helper",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),

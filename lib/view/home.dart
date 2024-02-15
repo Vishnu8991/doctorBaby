@@ -1,221 +1,219 @@
-import 'package:doctor_baby/controller/dates_controller.dart';
+import 'package:doctor_baby/view/booking_summary.dart';
+import 'package:doctor_baby/view/calendar.dart';
 import 'package:doctor_baby/view/chat.dart';
-import 'package:doctor_baby/view/mail/mail.dart';
+import 'package:doctor_baby/view/components/carousals.dart';
+import 'package:doctor_baby/view/hospitals_view.dart';
+import 'package:doctor_baby/view/program_status_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:table_calendar/table_calendar.dart';
-import 'package:intl/intl.dart';
 
+void main(){
+  runApp(GetMaterialApp(home: Home(),debugShowCheckedModeBanner: false,));
+}
 
-class VaccineCalendar extends StatefulWidget {
-
-  final DatesController datesController = Get.put(DatesController());
-
-  @override
-  _VaccineCalendarState createState() => _VaccineCalendarState();
-  }
-
-class _VaccineCalendarState extends State<VaccineCalendar> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-  Map<DateTime, List<String>> _events = {};
-  DateTime? _selectedListViewDate;
-
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  void initState() {
-    super.initState();
+  State<Home> createState() => _HomeState();
+}
 
-  sendMailToParent();
+class _HomeState extends State<Home> {
 
-    datesController.dates.forEach((date) {
-      _events[date] = ['Vaccine Date'];
-    });
+  var name = [
+    "Calendar",
+    "Hospitals",
+    "Confirm",
+    "Summary",
+    "Chat bot",
+    "Profile",
+  ];
 
-    DateTime birthDate = DateTime.now();
- }
-  
-  List<String> _getEventsForDay(DateTime date) {
-    return _events[date] ?? [];
-  }
+  var icon = [
+    Icons.calendar_month,
+    Icons.local_hospital,
+    Icons.confirmation_num_rounded,
+    Icons.list_alt,
+    Icons.chat,
+    Icons.person,
+  ];
 
-  void _showEventDetails(DateTime selectedDay) {
-    List<String> events = _events[selectedDay] ?? [];
-    if (events.isNotEmpty) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('Events on ${selectedDay.toString().split(' ')[0]}'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: events.map((event) {
-                return Text('- $event');
-              }).toList(),
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('Close'),
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
+  var color = [
+    Colors.blue[100],
+    Colors.red[300],
+    Colors.green[100],
+    Colors.pink[100],
+    Colors.purple[200],
+    Colors.cyan[100],
+  ];
 
-  final DatesController datesController = Get.put(DatesController());
+  var pages = [
+    VaccineCalendar(),
+    Hospitalsview(),
+    Programsview(),
+    SummaryScreen(),
+    ChatBot(),
+    ChatBot(),
+  ];
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-
-        floatingActionButton: FloatingActionButton(onPressed: (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ChatBot()));
-        },child: Icon(Icons.message),),
-
-        backgroundColor: Colors.white,
-        body: Expanded(
+        body: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                child: Text("Doctor baby", 
-                style: TextStyle(
-                  fontSize: 25,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold
-                ),)),
-      
-              TableCalendar(
-                firstDay: DateTime.utc(2021, 1, 1),
-                lastDay: DateTime.utc(2025, 12, 31),
-                focusedDay: _focusedDay,
-                calendarFormat: _calendarFormat,
-                eventLoader: _getEventsForDay,
-                headerStyle: HeaderStyle(
-                  formatButtonVisible: true,
-                formatButtonDecoration: BoxDecoration(color: Colors.grey),
-                leftChevronIcon: Icon(Icons.chevron_left, color: Colors.black),
-                rightChevronIcon: Icon(Icons.chevron_right, color: Colors.black),
-                  titleTextStyle: TextStyle(color: Colors.black),
-                ),
-                calendarStyle: CalendarStyle(
-                  selectedDecoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  todayDecoration: BoxDecoration(
-                    color: Colors.green,
-                    shape: BoxShape.circle,
-                  ),
-                  defaultTextStyle: TextStyle(color: Colors.black),
-                ),
-                onFormatChanged: (format) {
-                  setState(() {
-                    _calendarFormat = format;
-                  });
-                },
-                selectedDayPredicate: (day) {
-                  return isSameDay(_selectedDay, day);
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _selectedDay = selectedDay;
-                    _focusedDay = focusedDay;
-                  });
-                  _showEventDetails(selectedDay);
-                },
-                calendarBuilders: CalendarBuilders(
-                  markerBuilder: (context, date, events) {
-                    final markers = <Widget>[];
-          
-                    if (_events[date] != null && _events[date]!.isNotEmpty) {
-                      markers.add(
-                        Positioned(
-                          bottom: 1,
-                          child: Container(
-                            height: 6,
-                            width: 6,
-                            decoration: BoxDecoration(
-                              color: Colors.yellow,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      );
-                    }
-          
-                    return Row(children: markers);
-                  },
-                ),
+          children: [
+            
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.cyan[900],
+                borderRadius: BorderRadius.only(bottomRight: Radius.circular(50))
               ),
-              SizedBox(height: 30),
-              Padding(
+              child: Column(
+                children: [
+                  SizedBox(height: 10,),
+                
+                  Container(
+                    alignment: Alignment.center,
+                    width: double.infinity,
+                    child: Text("DoctorBaby", style: TextStyle(color: Colors.white, fontSize: 30),),
+                  ),
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+              height: 100,
+              child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  'Vaccine Dates:',
-                  style: TextStyle(letterSpacing: 1.2,fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Hi User, ",style: TextStyle(color: Colors.grey[300], fontSize: 22),),
+                    Text("How are you doing today?",style: TextStyle(color: Colors.grey[200], fontSize: 23))
+                  ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  // padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[400],
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(25),
+            ),
+                ],
+              ),
+            ),
+                
+                
+            Carousal(),
+                
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Container(
+                decoration: BoxDecoration(
+                color: Colors.grey[100],
+                  borderRadius: BorderRadius.circular(10)),
+                height:280,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        height: 25,
+                        width: double.infinity,
+                        child: Text("Category", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                      ),
                     ),
-                  ),
-                  child: 
-                  Obx(() => 
-                  ListView.builder(
-                    itemCount: datesController.dates.length,
-                    itemBuilder: (context, index) {
-                      DateTime date = datesController.dates[index];
-                      return Card(
-                        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                        color: Colors.grey[900],
-                        child: ListTile(
-                          title: Row(mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                '${date.day}/${date.month}/${date.year}',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: 1.2,
-                                  fontSize: 17
-                                ),
-                              ),
-                            ],
+                    Expanded(
+              child: GridView.builder(
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 6,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3), 
+                itemBuilder: (context, index){
+                  return Padding(
+                    padding: const EdgeInsets.all(1.0),
+                    child: Column(
+                      children: [
+                        InkWell(onTap: () => Get.to(pages[index]),
+                          child: Container(
+                            decoration: BoxDecoration(
+                            // color: color[index],
+                            color: Colors.blue[100],
+                              borderRadius: BorderRadius.circular(20)
+                            ),
+                            padding: EdgeInsets.all(8),
+                            child: Icon(icon[index], size: 50),
                           ),
-                          onTap: () {
-                            setState(() {
-                              _selectedListViewDate = date;
-                              _selectedDay = date;
-                              _focusedDay = date;
-                            });
-                            _showEventDetails(date);
-                          },
                         ),
-                      );
-                    },
-                  ),
+                        SizedBox(height: 5,),
+                        Text(name[index], style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),)
+                      ],
+                    ),
+                  );
+                }),
+                    )
+                  ],
                 ),
-              ),)
-            ],
-          ),
-        ),
+              ),
+            ),
+                
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Container(
+                decoration: BoxDecoration(
+                color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10)
+                ),
+                width: double.infinity,
+                child: Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Card(
+                          // color: Colors.grey[900],
+                          child: Container(
+                            width: 140,
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            
+                              Text("Quick and",style: TextStyle(color: Colors.black)),
+                              // SizedBox(height: 3,),
+                              Text("easy",style: TextStyle(color: Colors.black)),
+                              // SizedBox(height: 3,),
+                              Text("appointments",style: TextStyle(color: Colors.black)),
+                            ],),
+                          ),
+                        ),
+                        SizedBox(width: 30),
+                        Card(
+                          // color: Colors.grey[900],
+                          child: Container(
+                            width: 140,
+                            padding: EdgeInsets.all(10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                            
+                              Text("Safe and", style: TextStyle(color: Colors.black),),
+                              // SizedBox(height: 3,),
+                              Text("effective",style: TextStyle(color: Colors.black)),
+                              // SizedBox(height: 3,),
+                              Text("vaccines",style: TextStyle(color: Colors.black)),
+                            ],),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )),
+              ),
+            )
+                
+          ],
+                ),
+        )
       ),
     );
+    
   }
 }

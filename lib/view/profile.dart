@@ -1,10 +1,12 @@
 import 'package:doctor_baby/view/bottom_nav.dart';
+import 'package:doctor_baby/view/calendar.dart';
 import 'package:doctor_baby/view/home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
 
@@ -53,8 +55,12 @@ class _ProfilePageState extends State<ProfilePage> {
           // userId = responseData['id']; 
           ProfilePage.userId = responseData["id"];
 
+
+          await saveFirstName(_firstnameController.text);
+
+
         print('Retrieved ID: ${ProfilePage.userId}');
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => BottomNavi()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
         } else {
           _showSnackBar('Failed to create profile. Please try again.');
         }
@@ -64,6 +70,14 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     }
   }
+
+
+  Future<void> saveFirstName(String firstName) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('firstName', firstName);
+  }
+
+
 
   bool _validateForm() {
     if (_firstnameController.text.isEmpty ||  
@@ -243,6 +257,15 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 }
+
+
+  class Util {
+  static Future<String?> getFirstName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('firstName');
+  }
+}
+
 
 void main() {
   runApp(MaterialApp(
