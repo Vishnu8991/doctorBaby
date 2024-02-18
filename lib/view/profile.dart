@@ -124,132 +124,147 @@ class _ProfilePageState extends State<ProfilePage> {
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Profile'),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Form(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-              Center(
-                  child: GestureDetector(
-                    onTap: _pickImage,
-                    child: CircleAvatar(
-                      backgroundColor: Colors.black,
-                      radius: 50,
-                      backgroundImage: _profileImage != null
-                          ? FileImage(_profileImage!) as ImageProvider<Object>?
-                          : AssetImage("assets/profile.jpeg"),
-                          
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          decoration: BoxDecoration(image: DecorationImage(image: NetworkImage("https://images.unsplash.com/photo-1582486225644-aeacf6aa0b1b?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"), fit: BoxFit.cover)),
+          height: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SingleChildScrollView(
+              child: Card(
+                color: Colors.black45,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Form(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                      // Center(
+                      //     child: GestureDetector(
+                      //       onTap: _pickImage,
+                      //       child: CircleAvatar(
+                      //         backgroundColor: Colors.black,
+                      //         radius: 50,
+                      //         backgroundImage: _profileImage != null
+                      //             ? FileImage(_profileImage!) as ImageProvider<Object>?
+                      //             : AssetImage("assets/profile.jpeg"),
+                                  
+                      //       ),
+                      //     ),
+                      //   ),
+                  
+                        SizedBox(height: 20),
+                      Text("Create a profile for your baby", 
+                      style: TextStyle(color: Colors.grey[200], fontSize: 25),),
+                  
+                        SizedBox(height: 70),
+                            
+                        TextFormField(style: TextStyle(color: Colors.grey[100]),
+                          controller: _firstnameController,
+                          decoration: InputDecoration(labelText: 'First Name',
+                            labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[300]),
+                            border: OutlineInputBorder(borderRadius: BorderRadius
+                                .circular(20) ),),
+                            
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your first name.';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 12),
+                        TextFormField(style: TextStyle(color: Colors.grey[100]),
+                          controller: _lastnameController,
+                          decoration: InputDecoration(labelText: 'Last Name',
+                            labelStyle: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[300]),
+                            border: OutlineInputBorder(borderRadius: BorderRadius
+                                .circular(20) ),),
+                            
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter your last name.';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 12),
+                        TextFormField(style: TextStyle(color: Colors.grey[100]),
+                          controller: _dobController,
+                          decoration: InputDecoration(
+                            labelText: 'Date of Birth',  labelStyle: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[300]),
+                            border: OutlineInputBorder(borderRadius: BorderRadius
+                                .circular(20) ),),
+                          onTap: () => _selectDate(context),
+                          readOnly: true,
+                        ),
+                        SizedBox(height: 12),
+                        TextFormField(style: TextStyle(color: Colors.grey[100]),
+                          controller: _parentNameController,
+                          decoration: InputDecoration(labelText: 'Parent Name',  labelStyle: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[300]),
+                            border: OutlineInputBorder(borderRadius: BorderRadius
+                                .circular(20) ),),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter the parent name.';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 24),
+                            
+                        Text("Gender", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey[300])),
+                        Row(
+                          children: [
+                            Radio(
+                              value: 'Male',
+                              groupValue: _selectedGender,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedGender = value.toString();
+                                });
+                              },
+                            ),
+                            Text('Male', style: TextStyle(color: Colors.grey[200]),),
+                            Radio(
+                              value: 'Female',
+                              groupValue: _selectedGender,
+                              onChanged: (value) {
+                                setState(() {
+                                  _selectedGender = value.toString();
+                                });
+                              },
+                            ),
+                            Text('Female', style: TextStyle(color: Colors.grey[200]),),
+                          ],
+                        ),
+                            
+                            
+                        SizedBox(height: 25),
+                            
+                        Center(
+                          child: GestureDetector(
+                            onTap: _saveProfile,
+                            child: Container(
+                              padding: EdgeInsets.all(10),
+                              child: Text(
+                                "Create profile",
+                                style: TextStyle(fontSize: 16, color: Colors.black),
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 20),
+                      ],
                     ),
                   ),
                 ),
-                SizedBox(height: 50),
-
-                TextFormField(
-                  controller: _firstnameController,
-                  decoration: InputDecoration(labelText: 'First Name',
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    border: OutlineInputBorder(borderRadius: BorderRadius
-                        .circular(30) ),),
-
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your first name.';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 12),
-                TextFormField(
-                  controller: _lastnameController,
-                  decoration: InputDecoration(labelText: 'Last Name',
-                    labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    border: OutlineInputBorder(borderRadius: BorderRadius
-                        .circular(30) ),),
-
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your last name.';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 12),
-                TextFormField(
-                  controller: _dobController,
-                  decoration: InputDecoration(labelText: 'Date of Birth',  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    border: OutlineInputBorder(borderRadius: BorderRadius
-                        .circular(30) ),),
-                  onTap: () => _selectDate(context),
-                  readOnly: true,
-                ),
-                SizedBox(height: 12),
-                TextFormField(
-                  controller: _parentNameController,
-                  decoration: InputDecoration(labelText: 'Parent Name',  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                    border: OutlineInputBorder(borderRadius: BorderRadius
-                        .circular(30) ),),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter the parent name.';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 24),
-
-                Text("Gender", style: TextStyle(fontWeight: FontWeight.bold)),
-                Row(
-                  children: [
-                    Radio(
-                      value: 'Male',
-                      groupValue: _selectedGender,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedGender = value.toString();
-                        });
-                      },
-                    ),
-                    Text('Male'),
-                    Radio(
-                      value: 'Female',
-                      groupValue: _selectedGender,
-                      onChanged: (value) {
-                        setState(() {
-                          _selectedGender = value.toString();
-                        });
-                      },
-                    ),
-                    Text('Female'),
-                  ],
-                ),
-
-
-                SizedBox(height: 25),
-
-                Center(
-                  child: GestureDetector(
-                    onTap: _saveProfile,
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Create profile",
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ),

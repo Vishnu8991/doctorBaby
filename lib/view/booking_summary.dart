@@ -80,57 +80,81 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Summary'),
-      ),
-      body: Obx(
-        () {
-          if (_summaryController.isLoading.value) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return ListView.builder(
-              itemCount: _summaryController.summaryList.length,
-              itemBuilder: (context, index) {
-                var summary = _summaryController.summaryList[index];
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey,
 
-                String isTakenDisplay = summary.status?.isTaken == true ? 'Completed' : 'Pending';
-                var isTakenColor = summary.status?.isTaken == true ? Colors.green : Colors.red;
-
-                return 
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                  child: Container(
-                    width: double.infinity,
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 150,
-                        color: Colors.grey[300],
-                          padding: EdgeInsets.all(10),
-                          // color: Colors.grey[300],
-                          child: Text('Vaccine ${summary.status?.program}:',style: TextStyle(fontSize: 17)),
-                        ),
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                            color: isTakenColor,
-                            padding: EdgeInsets.all(10),
-                              child: Text('${isTakenDisplay}',style: TextStyle(fontSize: 17),)),
-                          )
-                      ],
+        body: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 25),
+          child: Card(color: Colors.black54,
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 10),
+              // height: 600,
+              child: Column(mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+          
+                  Text("Vaccine Summary", style: TextStyle(color: Colors.grey[200], fontSize: 25, fontWeight: FontWeight.bold),),
+                  SizedBox(height: 20),
+          
+                  Expanded(
+                    child: Obx(
+                      () {
+                        if (_summaryController.isLoading.value) {
+                          return Center(child: CircularProgressIndicator());
+                        } else {
+                          return ListView.builder(
+                            itemCount: _summaryController.summaryList.length,
+                            itemBuilder: (context, index) {
+                              var summary = _summaryController.summaryList[index];
+                    
+                              String isTakenDisplay = summary.status?.isTaken == true ? 'Completed' : 'Pending';
+                              var isTakenColor = summary.status?.isTaken == true ? Colors.green : Colors.red;
+                    
+                              return 
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                        color: Colors.black,
+                                  borderRadius: BorderRadius.circular(10)),
+                                  padding: EdgeInsets.symmetric(vertical: 12,horizontal: 10),
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 150,
+                                        padding: EdgeInsets.all(10),
+                                        child: Text('Vaccine ${summary.status?.program}',style: TextStyle(fontSize: 20, color: Colors.white)),
+                                      ),
+                                        Expanded(
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                          color: isTakenColor,
+                                              borderRadius: BorderRadius.circular(20)),
+                                            alignment: Alignment.center,
+                                          padding: EdgeInsets.all(10),
+                                            child: Text('${isTakenDisplay}',style: TextStyle(fontSize: 20),)),
+                                        )
+                                    ],
+                                  ),
+                                ),
+                              );
+                              ListTile(
+                                title: Text('Vaccine ${summary.status?.program}'),
+                                // subtitle: Text('Is Taken: ${summary.status?.isTaken}'),
+                                subtitle: Text('Taken: ${isTakenDisplay}'),
+                              );
+                            },
+                          );
+                        }
+                      },
                     ),
                   ),
-                );
-                ListTile(
-                  title: Text('Vaccine ${summary.status?.program}'),
-                  // subtitle: Text('Is Taken: ${summary.status?.isTaken}'),
-                  subtitle: Text('Taken: ${isTakenDisplay}'),
-                );
-              },
-            );
-          }
-        },
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

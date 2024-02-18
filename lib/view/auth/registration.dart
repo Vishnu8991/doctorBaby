@@ -68,199 +68,205 @@ class _RegPageState extends State<RegPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[300],
-        body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(height: 10,),
-            Text("Sign up", style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
-              child: Card(
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  // color: Colors.white30,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                  
-                    const SizedBox(height: 10),
-                  
-                    Text("Create Account", style: TextStyle(color: Colors.blue, fontSize: 25),),
-                  
-                            const SizedBox(height: 20),  
-                  
-                            Text("Username",),
-                  
-                              SizedBox(height: 5),
-                  
-                              Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: TextField(
-                                    controller: user,
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey[300],
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage("https://plus.unsplash.com/premium_photo-1702598514328-df24125131cd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",),fit: BoxFit.fitHeight)),
+            child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 15),
+                  child: Card(
+                    color: Colors.black54,
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      // color: Colors.white30,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                      
+                        const SizedBox(height: 10),
+                      
+                        Text("Registration", style: TextStyle(color: Colors.blue, fontSize: 25),),
+                      
+                                const SizedBox(height: 20),  
+                      
+                                Text("Username",style: TextStyle(color: Colors.grey),),
+                      
+                                  SizedBox(height: 5),
+                      
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25)
                                       ),
-                                      isDense: true,
-                                      hintText: "username",
-                                      fillColor: Colors.green
-                                    ),
-                                  ),
-                                ),
-                            const SizedBox(height: 15),  
-                            Text("First name",),
-                  
-                              SizedBox(height: 5),
-                  
-                              Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: TextField(
-                                    controller: first,
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)
+                                      child: TextField(
+                                        controller: user,
+                                        style: TextStyle(color: Colors.grey[100]),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20)
+                                          ),
+                                          isDense: true,
+                                          hintText: "username",hintStyle: TextStyle(color: Colors.grey[200]),
+                                          fillColor: Colors.green
+                                        ),
                                       ),
-                                      isDense: true,
-                                      hintText: "first name",
-                                      fillColor: Colors.green
                                     ),
-                                  ),
-                                ),
-                            const SizedBox(height: 25),  
-                  
-                            Text("Last name",),
-                  
-                              SizedBox(height: 5),
-                              Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: TextField(
-                                    controller: last,
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)
+                                const SizedBox(height: 15),  
+                                Text("First name",style: TextStyle(color: Colors.grey)),
+                      
+                                  SizedBox(height: 5),
+                      
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25)
                                       ),
-                                      isDense: true,
-                                      hintText: "last name",
-                                      fillColor: Colors.green
-                                    ),
-                                  ),
-                                ),
-                            const SizedBox(height: 15),  
-                  
-                            Text("Email",),
-                  
-                              SizedBox(height: 5),
-                              Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: TextField(
-                                    controller: email,
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)
+                                      child: TextField(
+                                        controller: first,
+                                        style: TextStyle(color: Colors.grey[100]),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20)
+                                          ),
+                                          isDense: true,
+                                          hintText: "first name",hintStyle: TextStyle(color: Colors.grey[200]),
+                                          fillColor: Colors.green
+                                        ),
                                       ),
-                                      isDense: true,
-                                      hintText: "email",
-                                      fillColor: Colors.green
                                     ),
-                                  ),
-                                ),
-                            const SizedBox(height: 15),  
-                  
-                            Text("Phone number"),
-                  
-                              SizedBox(height: 5),
-                  
-                              Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: TextField(
-                                    controller: phone,
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)
+                                const SizedBox(height: 25),  
+                      
+                                Text("Last name",style: TextStyle(color: Colors.grey)),
+                      
+                                  SizedBox(height: 5),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25)
                                       ),
-                                      isDense: true,
-                                      hintText: "phone number",
-                                      fillColor: Colors.green
-                                    ),
-                                  ),
-                                ),
-                            const SizedBox(height: 15),  
-                  
-                            Text("Password",),
-                  
-                              SizedBox(height: 5),
-                  
-                              Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(25)
-                                  ),
-                                  child: TextField(
-                                    controller: pass,
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(20)
+                                      child: TextField(
+                                        controller: last,
+                                        style: TextStyle(color: Colors.grey[100]),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20)
+                                          ),
+                                          isDense: true,
+                                          hintText: "last name",hintStyle: TextStyle(color: Colors.grey[200]),
+                                          fillColor: Colors.green
+                                        ),
                                       ),
-                                      isDense: true,
-                                      hintText: "password",
-                                      fillColor: Colors.green
                                     ),
-                                  ),
-                                ),
-                  
-                  
-                  
-                    const SizedBox(height: 25), 
-                  
-            
-                    Padding(
-                        padding: const EdgeInsets.only(left: 35),
-                        child: ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blue[700]),
-                            fixedSize: MaterialStateProperty.all(Size(250, 40)),
+                                const SizedBox(height: 15),  
+                      
+                                Text("Email",style: TextStyle(color: Colors.grey)),
+                      
+                                  SizedBox(height: 5),
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25)
+                                      ),
+                                      child: TextField(
+                                        controller: email,
+                                        style: TextStyle(color: Colors.grey[100]),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20)
+                                          ),
+                                          isDense: true,
+                                          hintText: "email",hintStyle: TextStyle(color: Colors.grey[200]),
+                                          fillColor: Colors.green
+                                        ),
+                                      ),
+                                    ),
+                                const SizedBox(height: 15),  
+                      
+                                Text("Phone number",style: TextStyle(color: Colors.grey)),
+                      
+                                  SizedBox(height: 5),
+                      
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25)
+                                      ),
+                                      child: TextField(
+                                        controller: phone,
+                                        style: TextStyle(color: Colors.grey[100]),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20)
+                                          ),
+                                          isDense: true,
+                                          hintText: "phone number",hintStyle: TextStyle(color: Colors.grey[200]),
+                                          fillColor: Colors.green
+                                        ),
+                                      ),
+                                    ),
+                                const SizedBox(height: 15),  
+                      
+                                Text("Password",style: TextStyle(color: Colors.grey)),
+                      
+                                  SizedBox(height: 5),
+                      
+                                  Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(25)
+                                      ),
+                                      child: TextField(
+                                        controller: pass,
+                                        style: TextStyle(color: Colors.grey[100]),
+                                        decoration: InputDecoration(
+                                          border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(20)
+                                          ),
+                                          isDense: true,
+                                          hintText: "password",hintStyle: TextStyle(color: Colors.grey[200]),
+                                          fillColor: Colors.green
+                                        ),
+                                      ),
+                                    ),
+                      
+                      
+                      
+                        const SizedBox(height: 25), 
+                      
+                
+                        Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.blue[700]),
+                                fixedSize: MaterialStateProperty.all(Size(250, 40)),
+                              ),
+                              onPressed: () {
+                                _registerUser(); 
+                              },
+                              child: const Text("SIGNUP", style: TextStyle(color: Colors.white)),
+                            ),
                           ),
-                          onPressed: () {
-                            _registerUser(); 
-                          },
-                          child: const Text("SIGNUP", style: TextStyle(color: Colors.white)),
-                        ),
+                
+                
+                        Row(mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Already have an account?",style:TextStyle(color: Colors.grey[200]),),
+                            TextButton(onPressed: (){
+                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login()));
+                            }, child: Text("Sign in"))
+                          ],
+                        )
+                
+                        ],
                       ),
-            
-            
-                    Row(mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Already have an account?"),
-                        TextButton(onPressed: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login()));
-                        }, child: Text("Sign in"))
-                      ],
-                    )
-            
-                    ],
+                    ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+                    ),
+          ),
       ),
     );
   }
