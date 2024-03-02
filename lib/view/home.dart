@@ -1,8 +1,11 @@
+import 'package:doctor_baby/view/baby_profile_view.dart';
 import 'package:doctor_baby/view/booking_summary.dart';
 import 'package:doctor_baby/view/calendar.dart';
 import 'package:doctor_baby/view/chat.dart';
 import 'package:doctor_baby/view/components/carousals.dart';
+import 'package:doctor_baby/view/components/text_slider.dart';
 import 'package:doctor_baby/view/hospitals_view.dart';
+import 'package:doctor_baby/view/profile.dart';
 import 'package:doctor_baby/view/program_status_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +22,16 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
+  String parentName = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Retrieve parent's name from SharedPreferences when the widget is initialized
+    _loadParentName();
+  }
 
   var name = [
     "Calendar",
@@ -53,8 +66,16 @@ class _HomeState extends State<Home> {
     Programsview(),
     SummaryScreen(),
     ChatBot(),
-    ChatBot(),
+    BabyProfilePage(),
   ];
+
+
+  Future<void> _loadParentName() async {
+    String? name = await Utils.getParentName();
+    setState(() {
+      parentName = name ?? "Parent"; // Default to "Parent" if no name is available
+    });
+  }
 
 
   @override
@@ -89,7 +110,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Hi User, ",style: TextStyle(color: Colors.grey[300], fontSize: 22),),
+                    Text("Hi $parentName, ",style: TextStyle(color: Colors.grey[300], fontSize: 22),),
                     Text("How are you doing today?",style: TextStyle(color: Colors.grey[200], fontSize: 23))
                   ],
                 ),
@@ -153,61 +174,75 @@ class _HomeState extends State<Home> {
               ),
             ),
                 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                width: double.infinity,
-                child: Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(2),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Card(
-                          // color: Colors.grey[900],
-                          child: Container(
-                            width: 140,
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 10),
+            //   child: Container(
+            //     decoration: BoxDecoration(
+            //     color: Colors.grey[300],
+            //       borderRadius: BorderRadius.circular(10)
+            //     ),
+            //     width: double.infinity,
+            //     child: Expanded(
+            //       child: Padding(
+            //         padding: const EdgeInsets.all(2),
+            //         child: Row(
+            //           mainAxisAlignment: MainAxisAlignment.center,
+            //           children: [
+            //             Card(
+            //               // color: Colors.grey[900],
+            //               child: Container(
+            //                 width: 140,
+            //                 padding: EdgeInsets.all(10),
+            //                 child: Column(
+            //                   mainAxisAlignment: MainAxisAlignment.center,
+            //                   children: [
                             
-                              Text("Quick and",style: TextStyle(color: Colors.black)),
-                              // SizedBox(height: 3,),
-                              Text("easy",style: TextStyle(color: Colors.black)),
-                              // SizedBox(height: 3,),
-                              Text("appointments",style: TextStyle(color: Colors.black)),
-                            ],),
-                          ),
-                        ),
-                        SizedBox(width: 30),
-                        Card(
-                          // color: Colors.grey[900],
-                          child: Container(
-                            width: 140,
-                            padding: EdgeInsets.all(10),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+            //                   Text("Quick and",style: TextStyle(color: Colors.black)),
+            //                   // SizedBox(height: 3,),
+            //                   Text("easy",style: TextStyle(color: Colors.black)),
+            //                   // SizedBox(height: 3,),
+            //                   Text("appointments",style: TextStyle(color: Colors.black)),
+            //                 ],),
+            //               ),
+            //             ),
+            //             SizedBox(width: 30),
+            //             Card(
+            //               // color: Colors.grey[900],
+            //               child: Container(
+            //                 width: 140,
+            //                 padding: EdgeInsets.all(10),
+            //                 child: Column(
+            //                   crossAxisAlignment: CrossAxisAlignment.center,
+            //                   mainAxisAlignment: MainAxisAlignment.center,
+            //                   children: [
                             
-                              Text("Safe and", style: TextStyle(color: Colors.black),),
-                              // SizedBox(height: 3,),
-                              Text("effective",style: TextStyle(color: Colors.black)),
-                              // SizedBox(height: 3,),
-                              Text("vaccines",style: TextStyle(color: Colors.black)),
-                            ],),
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-              ),
-            )
+            //                   Text("Safe and", style: TextStyle(color: Colors.black),),
+            //                   // SizedBox(height: 3,),
+            //                   Text("effective",style: TextStyle(color: Colors.black)),
+            //                   // SizedBox(height: 3,),
+            //                   Text("vaccines",style: TextStyle(color: Colors.black)),
+            //                 ],),
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            //       )),
+            //   ),
+            // )
+
+            SizedBox(height: 5),
+            
+            Container(
+              padding: EdgeInsets.all(5),
+              width: double.infinity,
+              color: Colors.grey[300],
+              height: 100,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextSlider(),
+                ],
+              ))
                 
           ],
                 ),

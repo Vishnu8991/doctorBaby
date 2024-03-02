@@ -203,7 +203,12 @@ Future<void> bookData() async {
                             items: vaccineController.vaccines
                                 .map((vaccine) => DropdownMenuItem<Vaccines>(
                                       value: vaccine,
-                                      child: Text('Vaccine ${vaccine.id}'),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text('Vaccine ${vaccine.id}  [${vaccine.vaccines!.map((vaccines) => vaccines.vaccine).join(',')},]'),
+                                        ],
+                                      ),
                                     ))
                                 .toList(),
                             onChanged: (selectedVaccine) {

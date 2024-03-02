@@ -58,6 +58,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
           await saveFirstName(_firstnameController.text);
 
+          await saveParentName(_parentNameController.text);
+
 
         print('Retrieved ID: ${ProfilePage.userId}');
           Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
@@ -76,6 +78,11 @@ class _ProfilePageState extends State<ProfilePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('firstName', firstName);
   }
+
+  Future<void> saveParentName(String parentName) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.setString('parentName', parentName);
+}
 
 
 
@@ -278,6 +285,13 @@ class _ProfilePageState extends State<ProfilePage> {
   static Future<String?> getFirstName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('firstName');
+  }
+}
+
+class Utils {
+  static Future<String?> getParentName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('parentName');
   }
 }
 

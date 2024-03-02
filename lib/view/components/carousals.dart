@@ -35,14 +35,7 @@ class _CarousalState extends State<Carousal> {
           "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Barros_inaugura_linha_de_produ%C3%A7%C3%A3o_da_vacina_de_febre_amarela_%2828118409009%29.jpg/1200px-Barros_inaugura_linha_de_produ%C3%A7%C3%A3o_da_vacina_de_febre_amarela_%2828118409009%29.jpg",
           "https://upload.wikimedia.org/wikipedia/en/6/68/Medanta_the_medicity_hospital.jpg",
           "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Human-Male-White-Newborn-Baby-Crying.jpg/800px-Human-Male-White-Newborn-Baby-Crying.jpg",
-          // "assets/stack/vaccine2.jpg",
   ];
-
-  // var l = [190,225,215,170,205];
-
-  // var h = [160,145,150,200,145]; 
-
-  // var t = [-10,8,25,2,0]; 
 
   @override
   Widget build(BuildContext context) {

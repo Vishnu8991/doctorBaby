@@ -216,6 +216,7 @@ class _RegPageState extends State<RegPage> {
                                         borderRadius: BorderRadius.circular(25)
                                       ),
                                       child: TextField(
+                                        obscureText: true,
                                         controller: pass,
                                         style: TextStyle(color: Colors.grey[100]),
                                         decoration: InputDecoration(

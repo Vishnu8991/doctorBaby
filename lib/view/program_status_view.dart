@@ -55,13 +55,13 @@ class Programsview extends StatelessWidget {
           child: Column(
             children: [
           
-            SizedBox(height: 100),
+            SizedBox(height: 50),
           
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Card(
                   child: Container(alignment: Alignment.center,
-                    height: 550,
+                    height: 670,
                     color: Colors.transparent,
                     child: Column(
                       children: [
@@ -69,7 +69,7 @@ class Programsview extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 20),
                   alignment: Alignment.center,
-                  height: 90,
+                  height: 80,
                   decoration: BoxDecoration(
                     color:Colors.transparent,
                     borderRadius: BorderRadius.only(
@@ -152,7 +152,7 @@ class Programsview extends StatelessWidget {
                                         );
                                       } ,
                                   child: Padding(
-                                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                                    padding: const EdgeInsets.symmetric(horizontal: 5),
                                     child: Container(
                                       decoration: BoxDecoration(
                                       color:Colors.green,
@@ -160,16 +160,37 @@ class Programsview extends StatelessWidget {
                                       child: Container(
                                         alignment: Alignment.center,
                                         padding: EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-                                        height: 50,
+                                        height: 75,
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                                           children: [
+                                            // Container(
+                                            //   alignment: Alignment.center,
+                                            //   child: Text("Vaccine ${program.program!.id.toString()}",
+                                            //   style: TextStyle(
+                                            //     color: Colors.white,
+                                            //     fontSize: 20),)),
                                             Container(
-                                              alignment: Alignment.center,
-                                              child: Text("Vaccine ${program.program!.id.toString()}",
+                                        alignment: Alignment.center,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "Vaccine ${program.program!.id.toString()}",
                                               style: TextStyle(
                                                 color: Colors.white,
-                                                fontSize: 20),)),
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                            Text(
+                                              "${program.program!.vaccines!.map((vaccine) => vaccine.vaccine).join(', ')}",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                           ],
                                         ),
                                       ),
